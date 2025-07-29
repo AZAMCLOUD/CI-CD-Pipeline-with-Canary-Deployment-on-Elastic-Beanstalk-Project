@@ -121,7 +121,7 @@ eb-cicd/
 ![GitHub](/elasticbean/Screenshot2.png)
 ![GitHub](/elasticbean/Screenshot3.png)
 ![GitHub](/elasticbean/Screenshot4.png)
-![GitHub](/elasticbean/Screenshot1.png)
+![GitHub](/elasticbean/Screenshot10.png)
 
 ---
 
@@ -148,12 +148,25 @@ GitHub (Source Repos)
 ##  How It Works
 
 1. **Infrastructure Build(Artifact bucket)**: Triggeres via changes to the infrastructure repo. Deploys or updates AWS resources(S3) using CloudFormation through CodeBuild.
-2. **App Build & Upload**: Triggeres on changes to the application repo. The buildspec script:
+
+![howitworks](/elasticbean/Screenshot9.png)
+   
+3. **App Build & Upload**: Triggeres on changes to the application repo. The buildspec script:
    - Zips relevant files.
    - Uploads to S3(Artifact Bucket).
-3. **Infrastructure Build(ElasticBeanstalk)**:  Triggeres via changes to the infrastructure repo. Deploys or updates AWS resources(ElasticBeanstalk) using CloudFormation through CodeBuild.
-4. **Canary Deployment**: Elastic Beanstalk is configured to replace 50% of instances per batch, with a 5-minute pause between batches, allowing real-time health monitoring.
 
+  ![howitworks](/elasticbean/Screenshot12.png)
+  ![howitworks](/elasticbean/Screenshot13.png)
+  ![howitworks](/elasticbean/Screenshot11.png)
+  
+
+4. **Infrastructure Build(ElasticBeanstalk)**:  Triggeres via changes to the infrastructure repo. Deploys or updates AWS resources(ElasticBeanstalk) using CloudFormation through CodeBuild.
+
+![howitworks](/elasticbean/Screenshot14.png)
+![howitworks](/elasticbean/Screenshot16.png)
+   
+2. **Canary Deployment**: Elastic Beanstalk is configured to replace 50% of instances per batch.
+![howitworks](/elasticbean/Screenshot15.png)
 ---
 
 ## Additional Setup 
