@@ -1,4 +1,4 @@
-<img width="1913" height="869" alt="image" src="https://github.com/user-attachments/assets/67209c5c-4b5e-4e96-8142-a99a9b14e0fe" /># CI/CD Pipeline with Canary Deployment on Elastic Beanstalk
+# CI/CD Pipeline with Canary Deployment on Elastic Beanstalk
 
 This project implements a fully automated CI/CD pipeline that deploys a PHP web application to AWS Elastic Beanstalk with **canary deployment** using **Rolling with Additional Batch** strategy. The pipeline leverages **AWS CodePipeline**, **CodeBuild**, **S3**, and **CloudFormation** for infrastructure automation.
 
