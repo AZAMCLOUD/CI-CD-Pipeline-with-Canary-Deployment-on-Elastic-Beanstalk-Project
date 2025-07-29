@@ -38,11 +38,66 @@ This repository contains CloudFormation templates for provisioning all AWS resou
 #### Notable Files:
 ```
 iac-infras-setup/
-├── buildspec.yml             # Builds and deploys infrastructure using CloudFormation
-├── master-stack.yaml         # Master template deploying nested stacks
+├── artifact-bucket.yaml      # S3 artifact bucket for application files
 ├── eb.yaml                   # Elastic Beanstalk app + env with rolling/canary deployment
-├── artifact-bucket.yaml      # S3 artifact bucket for application zip files
+├── master-stack.yaml         # Master template deploying nested stacks
+├── buildspec.yml             # Builds and deploys infrastructure using CloudFormation
 ```
+![GitHub](/elasticbean/Screenshot6.png)
+![GitHub](/elasticbean/Screenshot5.png)
+
+**FULL CODE**
+```
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Elastic Beanstalk app with environment
+
+Resources:
+  EBApplication:
+    Type: AWS::ElasticBeanstalk::Application
+    Properties:
+      ApplicationName: MyApp
+      Description: My Canary Deploy App
+
+  EBApplicationVersion:
+    Type: AWS::ElasticBeanstalk::ApplicationVersion
+    Properties:
+      ApplicationName: !Ref EBApplication
+      Description: Initial version
+      SourceBundle:
+        S3Bucket: my-artifacts-azamcloud
+        S3Key: app.zip
+
+  EBEnvironment:
+    Type: AWS::ElasticBeanstalk::Environment
+    Properties:
+      EnvironmentName: MyApp-env1
+      ApplicationName: !Ref EBApplication
+      SolutionStackName: "64bit Amazon Linux 2023 v4.7.1 running PHP 8.2"
+      OptionSettings:
+        - Namespace: aws:elasticbeanstalk:command
+          OptionName: DeploymentPolicy
+          Value: RollingWithAdditionalBatch
+        - Namespace: aws:elasticbeanstalk:command
+          OptionName: BatchSizeType
+          Value: Percentage
+        - Namespace: aws:elasticbeanstalk:command
+          OptionName: BatchSize
+          Value: 50
+        - Namespace: aws:elasticbeanstalk:command
+          OptionName: PauseTime
+          Value: PT5M
+        - Namespace: aws:autoscaling:launchconfiguration
+          OptionName: IamInstanceProfile
+          Value: aws-elasticbeanstalk-ec2-role
+       
+      VersionLabel: !Ref EBApplicationVersion
+      Tier:
+        Name: WebServer
+        Type: Standard
+```
+![GitHub](/elasticbean/Screenshot7.png)
+![GitHub](/elasticbean/Screenshot8.png)
+
 
 ---
 
@@ -62,6 +117,11 @@ eb-cicd/
 ├── styles.css
 ├── buildspec.yml         # Builds artifact, uploads to S3
 ```
+
+![GitHub](/elasticbean/Screenshot2.png)
+![GitHub](/elasticbean/Screenshot3.png)
+![GitHub](/elasticbean/Screenshot4.png)
+![GitHub](/elasticbean/Screenshot1.png)
 
 ---
 
