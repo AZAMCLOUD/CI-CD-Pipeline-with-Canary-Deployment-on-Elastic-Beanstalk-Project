@@ -164,6 +164,9 @@ GitHub (Source Repos)
 
 ![howitworks](/elasticbean/Screenshot14.png)
 ![howitworks](/elasticbean/Screenshot16.png)
+![howitworks](/elasticbean/Screenshot17.png)
+
+
    
 2. **Canary Deployment**: Elastic Beanstalk is configured to replace 50% of instances per batch.
 ![howitworks](/elasticbean/Screenshot15.png)
